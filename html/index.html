@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photolib</title>
+</head>
+<body>
+  <h1>PHotolib</h1>
+  <script>
+    var {ipcRenderer, remote} = require('electron');  
+    var main = remote.require("./index.js");
+    console.log(main.folders)
+  </script>
+</body>
+</html>
