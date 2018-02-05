@@ -35,7 +35,7 @@ module.exports = {
         // TODO: use async ?
         let photos = fs.readdirSync(f)
         return {
-          folder_name: folder,
+          name: folder,
           photos: photos
         }
       })

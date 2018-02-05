@@ -23,7 +23,7 @@ function createWindow () {
 }
 
 function start(){
-  createWindow(photos)
+  createWindow()
 }
 
 app.on('ready', start)
@@ -34,4 +34,5 @@ app.on('window-all-closed', () => {
   }
 })
 
-
+// making api callable from renderer process
+exports.getPhotos = api.get_photos
