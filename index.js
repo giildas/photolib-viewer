@@ -5,8 +5,8 @@ const url = require('url')
 let api = require('./photolib_api')
 let win
 
-function createWindow () {
-  win = new BrowserWindow({width: 800, height: 600})
+function createWindow (photos) {
+  win = new BrowserWindow({width: 800, height: 600, show: false})
 
   win.loadURL(url.format({
     pathname: path.join(__dirname, 'html/index.html'),
@@ -15,7 +15,13 @@ function createWindow () {
   }))
 
   win.webContents.openDevTools()
+  win.on('ready-to-show', ()=>{
+    console.log("rts")
+    win.show()
+    win.webContents.send("photos", photos)
 
+  })
+  
   win.on('closed', () => {
     win = null
   })
@@ -23,9 +29,8 @@ function createWindow () {
 }
 
 function start(){
-  api.get_photos(folders => {
-    console.log("folders", folders)
-    createWindow()
+  api.get_photos(photos => {
+    createWindow(photos)
   })
 }
 
@@ -37,9 +42,4 @@ app.on('window-all-closed', () => {
   }
 })
 
-app.on('activate', () => {
-  if (win === null) {
-    
-  }
-})
 

@@ -29,7 +29,7 @@ module.exports = {
     let folders = fs.readdir(libfolder, (err, folders) => {
       if (err) throw err
 
-      let allphotos = folders.map(folder => {
+      let photos = folders.map(folder => {
         let f = path.resolve(libfolder, folder)
         
         // TODO: use async ?
@@ -40,7 +40,7 @@ module.exports = {
         }
       })
 
-      callback(allphotos)
+      callback(photos)
     })
      
   },

@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+
 module.exports = {
   entry: './html/main.js',
   output: {
@@ -9,5 +11,10 @@ module.exports = {
     loaders: [
       { test: /\.jsx?$/, loader: 'babel-loader', exclude: /node_modules/ }
     ]
-  }
+  },
+  plugins: [
+      new webpack.ExternalsPlugin('commonjs', [
+          'electron'
+      ])
+  ]
 }
