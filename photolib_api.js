@@ -2,13 +2,22 @@ const fs = require ('fs')
 const path = require ('path')
 const CONFIG = require('./config.json')
 
+/***
 
-let photos_json = {
-  "2017_12_01" : [
-    "img1",
-    "img2"
-  ]
-} 
+JSON structure 
+
+[
+  {
+    foldername: "2017_12_01",
+    photos : [
+      "img1.jpg",
+      "img2.jpg"
+    ]
+  },
+
+] 
+
+***/
 
 
 
@@ -22,11 +31,14 @@ module.exports = {
 
       let allphotos = folders.map(folder => {
         let f = path.resolve(libfolder, folder)
+        
+        // TODO: use async ?
         let photos = fs.readdirSync(f)
-        let ob = {}
-        ob[folder] = photos
-        return ob 
-      })  
+        return {
+          folder_name: folder,
+          photos: photos
+        }
+      })
 
       callback(allphotos)
     })
