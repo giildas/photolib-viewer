@@ -1,10 +1,8 @@
 const {app, BrowserWindow} = require('electron')
 const path = require('path')
 const url = require('url')
-const fs = require ('fs')
 
-const CONFIG = require('./config.json')
-
+let api = require('./photolib_api')
 let win
 
 function createWindow () {
@@ -22,18 +20,16 @@ function createWindow () {
     win = null
   })
 
-
-  // load config
-  let libfolder = CONFIG.lib
-  
-  // get folders list
-  let folders = fs.readdirSync(libfolder)
-  console.log(folders)
-  exports.folders = folders
-  // print them in html window
 }
 
-app.on('ready', createWindow)
+function start(){
+  api.get_photos(folders => {
+    console.log("folders", folders)
+    createWindow()
+  })
+}
+
+app.on('ready', start)
 
 app.on('window-all-closed', () => {
   if (process.platform !== 'darwin') {
@@ -43,7 +39,7 @@ app.on('window-all-closed', () => {
 
 app.on('activate', () => {
   if (win === null) {
-    createWindow()
+    
   }
 })
 
